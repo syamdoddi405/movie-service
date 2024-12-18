@@ -30,6 +30,67 @@ sudo yum install -y \
     libuuid
 	
 Note: skip failed files.
+
+Here's how you can resolve this and manually install the required dependencies for .NET Core on an Amazon Linux instance:
+
+Step 1: Update the System
+Before installing any dependencies, make sure your system is updated:
+
+bash
+Copy code
+sudo yum update -y
+Step 2: Identify Your Amazon Linux Version
+To ensure compatibility, verify your Amazon Linux version:
+
+bash
+Copy code
+cat /etc/os-release
+If the output indicates Amazon Linux 2, you can proceed with the steps below.
+
+Step 3: Install .NET Core Dependencies
+Manually install the required libraries for .NET Core. Use the commands below to install dependencies for Amazon Linux 2:
+
+bash
+Copy code
+sudo yum install -y \
+    gcc \
+    libcurl \
+    libicu \
+    libunwind \
+    openssl \
+    zlib \
+    libuuid
+Step 4: Add the Microsoft Repository
+Import the Microsoft GPG key:
+
+bash
+Copy code
+sudo rpm -Uvh https://packages.microsoft.com/config/amazon/2/packages-microsoft-prod.rpm
+Update your package list:
+
+bash
+Copy code
+sudo yum update -y
+Step 5: Install .NET Core Runtime or SDK
+Choose the version of .NET Core you need and install it:
+
+Install .NET 6 Runtime:
+bash
+Copy code
+sudo yum install -y dotnet-runtime-6.0
+Install .NET 6 SDK:
+bash
+Copy code
+sudo yum install -y dotnet-sdk-6.0
+Install Other Versions:
+You can find installation commands for other versions (like .NET 7) on the official Microsoft .NET download page.
+
+Step 6: Verify Installation
+Once the installation is complete, verify the version of .NET Core installed:
+
+bash
+Copy code
+dotnet --version
    sudo yum update -y
 sudo yum install -y dotnet-runtime-6.0
 sudo yum install -y dotnet-sdk-6.0
