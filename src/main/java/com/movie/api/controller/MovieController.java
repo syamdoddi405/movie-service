@@ -3,15 +3,11 @@ package com.movie.api.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.movie.api.mapper.MovieMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.movie.api.data.reporitory.MovieRepository;
 import com.movie.api.model.Movie;
@@ -25,6 +21,9 @@ public class MovieController {
 	@Autowired
 	MovieRepository movieRepository;
 
+	@Autowired
+	MovieMapper movieMapper;
+
 	@PostMapping(value = "/movie")
 	public ResponseEntity<Movie> postMovie(@RequestBody @Valid Movie movie) {
 		return new ResponseEntity<>(movieRepository.save(movie), HttpStatus.ACCEPTED);
@@ -34,6 +33,15 @@ public class MovieController {
 	public ResponseEntity<List<Movie>> getMovies() {
 		return new ResponseEntity<>(movieRepository.findAll(), HttpStatus.OK);
 	}
+
+	@PatchMapping(value = "/movie/{id}")
+	public ResponseEntity<Movie> patchMovie(@RequestBody Movie movie, @PathVariable("id") Integer id){
+		Optional<Movie> movieUpdate = movieRepository.findById(id);
+		if (movieUpdate.isPresent()) {
+			Movie mov =movieRepository.save(movieMapper.toMovie(movie));
+			return new ResponseEntity<>(mov, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);	}
 
 	@GetMapping(value = "/movie/{id}")
 	public ResponseEntity<Movie> getMovies(@PathVariable("id") Integer id) {

@@ -2,6 +2,7 @@ package com.movie.api.model;
 
 import java.util.List;
 
+import lombok.*;
 import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,11 +14,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @ToString
@@ -27,6 +23,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @Table
 @Entity
+@Builder
 public class Movie {
 
 	@Id
