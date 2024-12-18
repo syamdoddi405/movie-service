@@ -27,10 +27,10 @@ jobs:
     runs-on: [ec2-user]
     steps:
       - name: Pull Image from docker hub
-        run: docker pull syam405/movie-service:latest
+        run: sudo docker pull syam405/movie-service:latest
       - name: Remove old running container
-        run: docker rm -f movie-service-container
+        run: sudo docker rm -f movie-service-container
       - name: Run docker container
-        run: docker run -d -p 8080:8080 --name movie-service-container syam405/movie-service
+        run: sudo docker run -d -p 8080:8080 --name movie-service-container syam405/movie-service
 
 
