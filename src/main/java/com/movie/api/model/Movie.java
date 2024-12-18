@@ -1,5 +1,6 @@
 package com.movie.api.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import lombok.*;
@@ -24,7 +25,7 @@ import jakarta.persistence.Table;
 @Table
 @Entity
 @Builder
-public class Movie {
+public class Movie implements Serializable {
 
 	@Id
 	@Column(name ="id")

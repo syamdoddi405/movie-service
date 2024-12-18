@@ -1,7 +1,6 @@
 package com.movie.api.controller;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import com.movie.api.mapper.MovieMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +37,10 @@ public class MovieController {
 	public ResponseEntity<Movie> patchMovie(@RequestBody Movie movie, @PathVariable("id") Integer id){
 		Optional<Movie> movieUpdate = movieRepository.findById(id);
 		if (movieUpdate.isPresent()) {
-			Movie mov =movieRepository.save(movieMapper.toMovie(movie));
-			return new ResponseEntity<>(mov, HttpStatus.OK);
+			Movie obj = movieUpdate.get();
+			obj.setId(id);
+			obj.setName(movie.getName());
+			return new ResponseEntity<>(movieRepository.saveAndFlush(obj), HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);	}
 

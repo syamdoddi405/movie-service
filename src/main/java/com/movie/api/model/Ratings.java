@@ -14,6 +14,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Data
 @ToString
 @AllArgsConstructor
@@ -22,7 +24,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @Table
 @Entity
-public class Ratings {
+public class Ratings implements Serializable {
 
 	@Id
 	@Column(name = "id")
