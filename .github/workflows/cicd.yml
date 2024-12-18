@@ -22,15 +22,15 @@ jobs:
       - name: Publish Image to Docker Hub
         run: docker push syam405/movie-service:latest
 
-    deploy:
-      needs: build
-      runs-on: [aws-ec2]
-      steps:
-        - name: Pull Image from docker hub
-          run: docker pull syam405/movie-service:latest
-        - name: Remove old container
-          run: docker rm -f movie-service-container
-        - name: Run docker container
-          run: docker run -d -p 8080:8080 --name movie-service-container syam405/movie-service
+  deploy:
+    needs: build
+    runs-on: [ aws-ec2 ]
+    steps:
+      - name: Pull Image from docker hub
+        run: docker pull syam405/movie-service:latest
+      - name: Remove old container
+        run: docker rm -f movie-service-container
+      - name: Run docker container
+        run: docker run -d -p 8080:8080 --name movie-service-container syam405/movie-service
 
 
